@@ -1,0 +1,22 @@
+{
+  "name": "front-web-qa-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunoassuncao15/front-web-qa-challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brunoassuncao15/front-web-qa-challenge/issues"
+  },
+  "homepage": "https://github.com/brunoassuncao15/front-web-qa-challenge#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.20.2"
+  }
+}
