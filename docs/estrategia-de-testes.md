@@ -19,10 +19,6 @@ Estabelecer uma abordagem estruturada, sustentável e automatizada para mitigar 
   * Validação de campos obrigatórios e mensagens de erro (Cenário Negativo).
   * Submissão com dados válidos e isolamento de massa.
 
-* **Validação login:**
-  * Submissão com dados válidos
-  * Submissão com dados inválidos (Cenário Negativo).
-
 * **Componentes Assíncronos e Dinâmicos:**
   * Sincronização via observação de estado (Web-First Assertions) em componentes com tempo de carregamento variável.
 
@@ -107,3 +103,12 @@ Estabelecer uma abordagem estruturada, sustentável e automatizada para mitigar 
 ---
 
 ## 10. Próximos Passos
+
+### 10.1 Criar matriz de outros cenarios encontrados.
+* **Validação login:**
+  * Submissão com dados válidos
+  * Submissão com dados inválidos (Cenário Negativo).
+* **Carrinho de compra:**
+  * Adicionar ao carrinho, aplicar cupom de desconto e concluir compra preenchendo dados do cartão.
+
+### 10.2 Implementar o teste automatizado desses cenarios.
