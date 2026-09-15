@@ -156,7 +156,7 @@ Ferramentas automatizadas identificam entre 30% e 50% dos problemas de acessibil
 
 A Inteligência Artificial foi empregada como ferramenta de apoio técnico durante o desenvolvimento das seguintes etapas:
 
-* Refatoração e Estruturação de Documentação: Apoio na formatação dos documentos.
+* Refatoração e Estruturação de Documentação: Apoio na formatação dos documentos de Readme e workflows.
 * Mensagem de commit: Refatoração da mensagem de commit deixando mais coeso.
 * Teste: Apoio no teste dinamico onde a pagina estava abrindo anuncios e perdendo o foco assim quebrando o teste.
 
