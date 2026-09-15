@@ -5,7 +5,7 @@ let formPage: FormPage;
 
 test.beforeEach(async ({ page }) => {
   formPage = new FormPage(page);
-  await formPage.goto();
+  await formPage.goto('https://playwrightlab.github.io/');
 });
 
 test.afterEach(async () => {

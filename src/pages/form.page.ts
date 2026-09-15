@@ -1,7 +1,7 @@
 import {Page, Locator} from '@playwright/test';
+import { BasePage } from './base.page';
 
-export class FormsPage {
-    readonly page: Page;
+export class FormPage extends BasePage {
     readonly nameInput: Locator;
     readonly emailInput: Locator;
     readonly passwordInput: Locator;
@@ -9,16 +9,12 @@ export class FormsPage {
     readonly submitButton: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.nameInput = page.getByTestId('input-fullname');
         this.emailInput = page.getByTestId('input-email');
         this.passwordInput = page.getByTestId('input-password');
         this.checkboxInput = page.getByTestId('check-terms');
         this.submitButton = page.getByRole('button', { name: /register/i });
-    }
-
-    async goto() {
-        await this.page.goto('https://playwrightlab.github.io/');
     }
 
     async submitForm() {
@@ -47,9 +43,5 @@ export class FormsPage {
         const passwordError = this.page.getByTestId('error-password');
         
         return { nameError, emailError, passwordError };
-    }
-
-    async closePage() {
-        await this.page.close();
     }
 }

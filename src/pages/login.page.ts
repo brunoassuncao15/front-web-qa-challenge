@@ -1,20 +1,16 @@
 import {Page, Locator} from '@playwright/test';
+import { BasePage } from './base.page';
 
-export class LoginPage {
-    readonly page: Page;
+export class LoginPage extends BasePage {
     readonly usernameInput: Locator;
     readonly passwordInput: Locator;
     readonly submitButton: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.usernameInput = page.getByTestId('login-email');
         this.passwordInput = page.getByTestId('login-password');
         this.submitButton = page.getByTestId('login-submit');
-    }
-
-    async goto() {
-        await this.page.goto('https://playwrightlab.github.io/login.html');
     }
 
     async login(username: string, password: string) {
@@ -33,9 +29,5 @@ export class LoginPage {
     async validateLoginFailure() {
         const errorMessage = this.page.getByText('Invalid credentials');
         return errorMessage;
-    }
-
-    async closePage() {
-        await this.page.close();
     }
 }

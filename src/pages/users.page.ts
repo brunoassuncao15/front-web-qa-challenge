@@ -1,8 +1,7 @@
-import { AxeBuilder } from '@axe-core/playwright';
 import {Page, Locator} from '@playwright/test';
+import { BasePage } from './base.page';
 
-export class UsersPage {
-    readonly page: Page;
+export class UsersPage extends BasePage {
     readonly searchInput: Locator;
     readonly userRows: Locator;
     readonly nameHeader: Locator;
@@ -13,7 +12,7 @@ export class UsersPage {
     readonly submitButton: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.searchInput = page.getByPlaceholder('Search users...');
         this.userRows = page.locator('table tbody tr');
         this.nameHeader = page.getByRole('columnheader', { name: /name/i });
@@ -22,10 +21,6 @@ export class UsersPage {
         this.emailInput = page.getByTestId('new-user-email');
         this.roleSelect = page.getByTestId('new-user-role');
         this.submitButton = page.getByTestId('modal-confirm');
-    }
-
-    async goto() {
-        await this.page.goto('https://playwrightlab.github.io/');
     }
 
     async searchUser(name: string) {
@@ -72,17 +67,5 @@ export class UsersPage {
 
     async viewportSize(width: number, height: number) {
         return this.page.setViewportSize({ width, height });
-    }
-
-    async checkAccessibility() {
-        const results = await new AxeBuilder({ page: this.page })
-            .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
-            .analyze();
-
-        return results;
-    }
-
-    async closePage() {
-        await this.page.close();
     }
 }

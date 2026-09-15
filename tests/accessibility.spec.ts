@@ -1,21 +1,20 @@
 import { test, expect } from '@playwright/test';
-import AxeBuilder from '@axe-core/playwright';
-import { UsersPage } from '../src/pages/users.page';
+import { BasePage } from '../src/pages/base.page';
 
-let usersPage: UsersPage;
+let basePage: BasePage;
 
 test.beforeEach(async ({ page }) => {
-  usersPage = new UsersPage(page);
-  await usersPage.goto();
+  basePage = new (BasePage as any)(page);
+  await basePage.goto('https://playwrightlab.github.io/');
 });
 
 test.afterEach(async () => {
-  await usersPage.closePage();
+  await basePage.closePage();
 });
 
 test.describe('Acessibilidade (a11y)', () => {
   test('A11Y-06: Analisar conformidade WCAG na página inicial', async () => {
-    const accessibilityScanResults = await usersPage.checkAccessibility();
+    const accessibilityScanResults = await basePage.checkAccessibility();
 
     expect(accessibilityScanResults.violations.length).toBeGreaterThan(0);
   });

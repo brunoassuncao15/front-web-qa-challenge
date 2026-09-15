@@ -5,7 +5,7 @@ let usersPage: UsersPage;
 
 test.beforeEach(async ({ page }) => {
   usersPage = new UsersPage(page);
-  await usersPage.goto();
+  await usersPage.goto('https://playwrightlab.github.io/');
 });
 
 test.afterEach(async () => {
