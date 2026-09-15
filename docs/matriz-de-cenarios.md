@@ -38,7 +38,8 @@
 | **RSP-03** | Responsividade | Validar ausência de sobreposição relevante | Elementos visuais sobrepostos (botões, menus ou textos) bloqueando o clique ou a leitura do usuário. | Médio | P2 | **Não** | Alto índice de falso-positivo em testes E2E funcionais; melhor validado via **testes de regressão visual** (`toHaveScreenshot`). | Mapeado |
 | **RSP-04** | Responsividade | Validar ausência de scroll horizontal indevido | Quebra de layout onde o conteúdo excede a largura da tela, gerando barra de rolagem lateral indesejada. | Médio | P2 | **Não** | Requer asserções específicas de cálculo de *overflow* no DOM; baixo custo-benefício em relação aos testes funcionais móveis. | Mapeado |
 | **RSP-05** | Responsividade | Validar acesso às principais ações em tela reduzida | Ocultação indevida de botões de ação ou menus hambúrguer essenciais para o fluxo de trabalho. | Alto | P1 | **Não** | Validação coberta reativamente durante a navegação e execução do fluxo principal móvel no cenário RSP-02. | Mapeado |
-
+| **LOG-01** | Autenticação | Fazer login com credenciais válidas | Impede o acesso de usuários legítimos ao sistema, bloqueando o uso de todas as funcionalidades da aplicação. | Crítico | P0 | **Sim** | Valida a autenticação bem-sucedida e a exibição das mensagens de boas-vindas e sessão ativa. | **Automatizado** |
+| **LOG-02** | Autenticação | Tentar login com credenciais inválidas | Permite o acesso indevido com dados incorretos ou falha em informar o erro ao usuário, comprometendo a segurança da aplicação. | Crítico | P0 | **Sim** | Garantia de segurança e validação da exibição da mensagem de erro de autenticação. | **Automatizado** |
 ---
 
 ## Resumo da Suíte Selecionada para Automação
@@ -51,5 +52,7 @@
 6. **`DYN-01` (Componentes Dinâmicos / Assíncronos):** Valida a espera por estado operável em elementos com delay de carregamento.
 7. **`A11Y-06` (Acessibilidade - Axe-core):** Executa auditoria automatizada contra violações das regras WCAG no DOM renderizado.
 8. **`RSP-02` (Responsividade - Mobile Viewport):** Executa a jornada crítica em emulação móvel para validar usabilidade em telas reduzidas.
+9. **`LOG-01` (Autenticação - Usuario Valido):** Fazer login com credenciais válidas.
+10. **`LOG-02` (Autenticação - Cenário Negativo):** Tentar login com credenciais inválidas.
 
 ---
