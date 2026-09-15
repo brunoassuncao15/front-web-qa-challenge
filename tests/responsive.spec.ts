@@ -1,11 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { UsersPage } from '../src/pages/users.page';
+import { urls, users } from '../src/data';
 
 let usersPage: UsersPage;
 
 test.beforeEach(async ({ page }) => {
   usersPage = new UsersPage(page);
-  await usersPage.goto('https://playwrightlab.github.io/');
+  await usersPage.goto(urls.base);
 });
 
 test.afterEach(async () => {
@@ -17,7 +18,11 @@ test.describe('Responsividade', () => {
         await usersPage.goto();
         await usersPage.viewportSize(390, 844); // Emulação de dispositivo móvel (iPhone 12)
 
-        const createdUserRow = await usersPage.createUser('Bruno Teste', 'bruno.teste@example.com', 'viewer');
+        const createdUserRow = await usersPage.createUser(
+          users.newUser.name,
+          users.newUser.email,
+          users.newUser.role,
+        );
         await expect(createdUserRow).toBeVisible();
         await expect(createdUserRow).not.toBeEmpty();
     });

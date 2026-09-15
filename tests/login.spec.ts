@@ -1,11 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../src/pages/login.page';
+import { urls, credentials } from '../src/data';
 
 let loginPage: LoginPage;
 
 test.beforeEach(async ({ page }) => {
   loginPage = new LoginPage(page);
-  await loginPage.goto('https://playwrightlab.github.io/login.html');
+  await loginPage.goto(urls.login);
 });
 
 test.afterEach(async () => {
@@ -14,7 +15,7 @@ test.afterEach(async () => {
 
 test.describe('Login', () => {
     test('LOG-01: Fazer login com credenciais válidas', async () => {
-        await loginPage.login('test@playlab.com', 'Password123');
+        await loginPage.login(credentials.valid.email, credentials.valid.password);
         
         const [welcomeMessage, signedInMessage] = await loginPage.validateLoginSuccess();
         await expect(welcomeMessage).toBeVisible();
@@ -22,7 +23,7 @@ test.describe('Login', () => {
     });
 
     test('LOG-02: Tentar login com credenciais inválidas', async () => {
-        await loginPage.login('invalid@playlab.com', 'InvalidPassword123');
+        await loginPage.login(credentials.invalid.email, credentials.invalid.password);
 
         const errorMessage = await loginPage.validateLoginFailure();
         await expect(errorMessage).toBeVisible();
