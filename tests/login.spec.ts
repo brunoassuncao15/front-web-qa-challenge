@@ -15,7 +15,7 @@ test.afterEach(async () => {
 test.describe('Login', () => {
     test('LOG-01: Fazer login com credenciais válidas', async () => {
         await loginPage.login('test@playlab.com', 'Password123');
-
+        
         const [welcomeMessage, signedInMessage] = await loginPage.validateLoginSuccess();
         await expect(welcomeMessage).toBeVisible();
         await expect(signedInMessage).toBeVisible();
