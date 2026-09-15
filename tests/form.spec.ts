@@ -1,30 +1,30 @@
 import { test, expect } from '@playwright/test';
-import { FormsPage } from '../src/pages/forms.page';
+import { FormPage } from '../src/pages/form.page';
 
-let formsPage: FormsPage;
+let formPage: FormPage;
 
 test.beforeEach(async ({ page }) => {
-  formsPage = new FormsPage(page);
-  await formsPage.goto();
+  formPage = new FormPage(page);
+  await formPage.goto();
 });
 
 test.afterEach(async () => {
-  await formsPage.closePage();
+  await formPage.closePage();
 });
 
 test.describe('Componente formulario', () => {
     test('FRM-01: Submeter o formulário com dados válidos.', async () => {
-        await formsPage.fillForm('Bruno Teste', 'bruno.teste@example.com', 'Senha123', true);
+        await formPage.fillForm('Bruno Teste', 'bruno.teste@example.com', 'Senha123', true);
 
-        const successMessage = await formsPage.verifySuccessMessage();
+        const successMessage = await formPage.verifySuccessMessage();
         await expect(successMessage).toBeVisible();
     });
 
     test('FRM-02: Valida o bloqueio de envio e a presença das mensagens de erro para campos obrigatórios.', async () => {
-        await formsPage.submitForm();
-        await formsPage.verifyErrorMessages();
+        await formPage.submitForm();
+        await formPage.verifyErrorMessages();
 
-        const { nameError, emailError, passwordError } = await formsPage.verifyErrorMessages();
+        const { nameError, emailError, passwordError } = await formPage.verifyErrorMessages();
         await expect(nameError).toBeVisible();
         await expect(emailError).toBeVisible();
         await expect(passwordError).toBeVisible();
