@@ -10,7 +10,7 @@
 | **USR-06** | Gerenciamento de Usuários | Navegar entre as páginas da tabela | Quebra de controle de dados e perda de contexto visual. | Alto | P1 | **Não** | Risco mitigado pela ordenação e busca na versão inicial. | Mapeado |
 | **USR-07** | Gerenciamento de Usuários | Validar a situação apresentada para um usuário | Exibição incorreta do status de um registro. | Alto | P1 | **Não** | Pode ser incorporado na validação da linha em USR-03. | Mapeado |
 | **USR-08** | Gerenciamento de Usuários | Executar e validar uma ação disponível na tabela (ex: Editar/Deletar/ Criar) | Execução indevida de ações destrutivas ou erros de estado. | Crítico | P0 | **Sim** | Priorizado cenário pois é importante manter a tabela sempre atualizada. | **Automatizado** |
-| **FRM-01** | Formulário | Submeter o formulário com dados válidos | Falha no envio de cadastros e dados essenciais. | Crítico | P0 | **Não** | Submissão funcional priorizada após validação de regras de erro. | Mapeado |
+| **FRM-01** | Formulário | Submeter o formulário com dados válidos | Falha no envio de cadastros e dados essenciais. | Crítico | P0 | **Sim** | Garante que a funcionalidade de registro está submetendo sem perda de cadastro de novos usuarios. | **Automatizado** |
 | **FRM-02** | Formulário | Tentar submeter sem preencher campos obrigatórios | Ausência de feedback de erro e envio de dados corrompidos. | Crítico | P0 | **SIM** | **Cenário Negativo Obrigatório.** Garante validação de campos e mensagens de erro. | **Automatizado** |
 | **FRM-03** | Formulário | Informar um e-mail com formato inválido | Aceitação de entradas inválidas no banco/estado. | Alto | P1 | **Não** | Coberto conceitualmente em FRM-02 na camada de regras de formulário. | Mapeado |
 | **FRM-04** | Formulário | Validar limites de caracteres de um campo | Envios truncados, estouro de banco de dados ou bypass de validação de tamanho. | Baixo | P2 | **Não** | Custo de manutenção alto em E2E. Deve ser coberto preferencialmente por testes unitários/componente (ex: React Testing Library). | Mapeado |
@@ -46,9 +46,10 @@
 1. **`USR-03` (Gerenciamento de Usuários - Busca):** Valida a funcionalidade de busca e atualização da tabela.
 2. **`USR-05` (Gerenciamento de Usuários - Ordenação):** Valida a reordenação por clique nos cabeçalhos da tabela.
 3. **`USR-08` (Gerenciamento de Usuários - Deletar):** Valida a funcionalidade de criar/editar/deletar um usuário na tabela.
-4. **`FRM-02` (Formulário - Cenário Negativo):** Valida o bloqueio de envio e a presença das mensagens de erro para campos obrigatórios.
-5. **`DYN-01` (Componentes Dinâmicos / Assíncronos):** Valida a espera por estado operável em elementos com delay de carregamento.
-6. **`A11Y-06` (Acessibilidade - Axe-core):** Executa auditoria automatizada contra violações das regras WCAG no DOM renderizado.
-7. **`RSP-02` (Responsividade - Mobile Viewport):** Executa a jornada crítica em emulação móvel para validar usabilidade em telas reduzidas.
+4. **`FRM-02` (Formulário - Cadastro com dados validos):** Submeter o formulário com dados válidos | Falha no envio de cadastros e dados essenciais.
+5. **`FRM-02` (Formulário - Cenário Negativo):** Valida o bloqueio de envio e a presença das mensagens de erro para campos obrigatórios.
+6. **`DYN-01` (Componentes Dinâmicos / Assíncronos):** Valida a espera por estado operável em elementos com delay de carregamento.
+7. **`A11Y-06` (Acessibilidade - Axe-core):** Executa auditoria automatizada contra violações das regras WCAG no DOM renderizado.
+8. **`RSP-02` (Responsividade - Mobile Viewport):** Executa a jornada crítica em emulação móvel para validar usabilidade em telas reduzidas.
 
 ---

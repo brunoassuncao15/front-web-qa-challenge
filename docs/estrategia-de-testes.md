@@ -112,3 +112,5 @@ Estabelecer uma abordagem estruturada, sustentável e automatizada para mitigar 
   * Adicionar ao carrinho, aplicar cupom de desconto e concluir compra preenchendo dados do cartão.
 
 ### 10.2 Implementar o teste automatizado desses cenarios.
+
+---
