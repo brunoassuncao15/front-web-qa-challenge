@@ -79,7 +79,7 @@ A estrutura foi organizada seguindo o padrão **Page Object Model (POM)** com se
 front-web-qa-challenge/
 ├── .github/
 │   └── workflows/
-│       └── tests.yml
+│       └── playwright.yml
 ├── docs/
 │   ├── estrategia-de-testes.md
 │   └── matriz-de-cenarios.md
