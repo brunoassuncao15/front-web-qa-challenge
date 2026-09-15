@@ -17,7 +17,6 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest ]
-        node-version: [ '20.x' ]
     
     steps:
     - name: Checkout code
@@ -26,7 +25,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 'lts/*'
         cache: 'npm'
     
     - name: Install dependencies
@@ -38,27 +37,20 @@ jobs:
     - name: Run Playwright tests
       run: npm test
     
-    - name: Upload test results
+    - name: Upload Playwright HTML Report
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: playwright-report-${{ matrix.os }}
         path: playwright-report/
         retention-days: 30
+        if-no-files-found: 'warn'
     
-    - name: Upload test results HTML
+    - name: Upload test results
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: playwright-results-${{ matrix.os }}
+        name: test-results-${{ matrix.os }}
         path: test-results/
         retention-days: 30
-    
-    - name: Publish test report
-      uses: dorny/test-reporter@v1
-      if: ${{ !cancelled() }}
-      with:
-        name: Playwright Test Results (${{ matrix.os }})
-        path: 'test-results/results.xml'
-        reporter: 'java-junit'
-        fail-on-error: false
+        if-no-files-found: 'warn'

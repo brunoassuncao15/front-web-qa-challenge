@@ -1,118 +1,156 @@
 # GitHub Actions Workflows
 
-Este diretório contém os workflows do GitHub Actions configurados para automação de testes e CI/CD.
+Este diretório contém o workflow do GitHub Actions configurado para automação de testes.
 
-## 📋 Workflows Disponíveis
+## 📋 Workflow Disponível
 
-### 1. **playwright.yml** - Testes Playwright Automatizados
+### **playwright.yml** - Testes Playwright Automatizados ✅
+- **Status**: ✅ Totalmente funcional
 - **Trigger**: Push e Pull Requests nas branches `main`, `master` e `develop`
 - **Agendamento**: Executa diariamente às 2 AM UTC
 - **O que faz**:
   - Faz checkout do código
-  - Instala dependências Node.js
-  - Instala navegadores Playwright
+  - Instala dependências Node.js (LTS - versão mais recente)
+  - Instala navegadores Playwright com dependências do sistema
   - Executa todos os testes Playwright
-  - Gera e publica relatórios de teste
-  - Faz upload dos artefatos (relatório e resultados)
-
-### 2. **accessibility-tests.yml** - Testes de Acessibilidade
-- **Trigger**: Push e Pull Requests nas branches `main`, `master` e `develop`
-- **O que faz**:
-  - Instala dependências
-  - Executa testes marcados com `@accessibility`
-  - Gera relatório de acessibilidade
-  - Permite continuação mesmo com falhas (continue-on-error)
-
-### 3. **quality-check.yml** - Verificação de Qualidade de Código
-- **Trigger**: Push e Pull Requests nas branches `main`, `master` e `develop`
-- **Componentes**:
-  - **Quality Job**: Verifica tipos TypeScript, compila código
-  - **Build Job**: Valida instalação Playwright, imprime informações do projeto
-- **O que faz**:
-  - Verifica compilação TypeScript
-  - Valida estrutura do projeto
-  - Gera relatórios de cobertura
-
-### 4. **cross-browser.yml** - Testes em Múltiplos Navegadores
-- **Trigger**: Push, Pull Requests nas branches `main`, `master` e `develop`
-- **Disparo Manual**: Disponível com `workflow_dispatch`
-- **Navegadores testados**:
-  - 🔵 Chromium
-  - 🔴 Firefox
-  - 📱 Mobile Chrome
-- **O que faz**:
-  - Executa testes separados por navegador
-  - Coleta resultados de cada navegador
-  - Gera sumário consolidado
+  - Gera relatórios de teste (HTML interativo)
+  - Faz upload dos artefatos para visualização posterior
 
 ## 🚀 Como Usar
 
-### Executar um workflow manualmente
-1. Vá para a aba **Actions** no repositório GitHub
-2. Selecione o workflow desejado
-3. Clique em **Run workflow**
-4. Escolha a branch e clique em **Run workflow**
+### Execução Automática
+1. Faça **push** de código para `main`, `master` ou `develop`
+2. O workflow executará automaticamente
+3. Acompanhe em GitHub > **Actions**
 
-### Visualizar resultados
-- Cada workflow gera **artefatos** que podem ser baixados
-- Os relatórios ficam disponíveis por **30 dias**
-- Clique na execução do workflow para ver logs detalhados
+### Execução Manual
+1. Vá para GitHub > **Actions**
+2. Selecione **Playwright Tests**
+3. Clique em **Run workflow**
+4. Escolha a branch
+5. Clique em **Run workflow**
+
+### Agendado
+- Executa diariamente às **2 AM UTC**
+- Útil para detectar problemas intermitentes
+
+## 📊 Visualizar Resultados
+
+### Durante a execução:
+1. GitHub Actions → Workflow
+2. Clique no job para ver logs detalhados
+3. Veja cada step e seu resultado
+
+### Após conclusão:
+1. Acesse aba **Artifacts**
+2. Baixe relatórios
+3. Abra `index.html` no navegador para interação completa
 
 ### Arquivos de saída
 - `playwright-report/`: Relatório HTML interativo dos testes
 - `test-results/`: Resultados em XML/JSON para integração
 
+## 🔧 Configurações
+
+### Versão do Node.js
+- ✅ Usa `lts/*` (Latest LTS)
+- ✅ Automaticamente sincronizado
+- ✅ Evita problemas de deprecação
+
+### Branches Monitorizadas
+```yaml
+branches: [ main, master, develop ]
+```
+
+### Timeouts
+- Timeout: **60 minutos**
+
+### Retenção de Artefatos
+- ✅ Artefatos retidos por **30 dias**
+- ✅ Artefatos antigos deletados automaticamente
+- ✅ Sem custo adicional
+
 ## 📊 Status dos Workflows
 
-Os badges de status podem ser adicionados ao README do projeto:
+Badge de status para adicionar ao README:
 
 ```markdown
 ![Playwright Tests](https://github.com/user/repo/actions/workflows/playwright.yml/badge.svg)
-![Accessibility Tests](https://github.com/user/repo/actions/workflows/accessibility-tests.yml/badge.svg)
-![Quality Check](https://github.com/user/repo/actions/workflows/quality-check.yml/badge.svg)
-![Cross-Browser Tests](https://github.com/user/repo/actions/workflows/cross-browser.yml/badge.svg)
 ```
-
-## 🔧 Configurações
-
-### Variáveis de Ambiente (opcional)
-Adicione secrets no Settings > Secrets and variables > Actions:
-- `PLAYWRIGHT_TIMEOUT` - Timeout padrão dos testes
-- `CI_WEBHOOK_URL` - URL para notificações (opcional)
-
-### Cache de Dependências
-Os workflows utilizam cache automático do npm para:
-- Acelerar instalações
-- Reduzir tempo de execução
-- Diminuir uso de banda
 
 ## 📝 Customização
 
-Para modificar os workflows:
-1. Edite os arquivos `.yml` no diretório `.github/workflows/`
+Para modificar o workflow:
+1. Edite `playwright.yml`
 2. Faça push para a branch principal
-3. Os workflows serão atualizados automaticamente
+3. O workflow será atualizado automaticamente
+
+### Adicionar nova branch ao trigger
+```yaml
+on:
+  push:
+    branches: [ main, master, develop, staging ]
+  pull_request:
+    branches: [ main, master, develop, staging ]
+```
+
+### Alterar schedule
+```yaml
+schedule:
+  - cron: '0 2 * * *'  # 2 AM UTC todos os dias
+  - cron: '0 14 * * 1'  # 2 PM UTC toda segunda-feira
+```
 
 ## ⚠️ Troubleshooting
 
 ### Workflow não executa
-- Verifique se a branch existe
-- Confirme que o gatilho (on) está correto
-- Valide a sintaxe YAML
+- ✅ Verifique se a branch existe
+- ✅ Confirme que o gatilho (on) está correto
+- ✅ Valide a sintaxe YAML
 
 ### Testes falham no CI mas passam localmente
-- Verifique versão do Node.js (`node-version: '20.x'`)
-- Confira dependências do Playwright
-- Valide variáveis de ambiente
+- ✅ Verifique se está usando a mesma versão de Node.js
+- ✅ Instale dependências: `npm ci`
+- ✅ Instale browsers: `npx playwright install --with-deps`
 
 ### Timeout de testes
-- Aumente `timeout-minutes` no workflow
-- Otimize os testes para executar mais rápido
-- Considere dividir testes em jobs paralelos
+- ✅ Aumente `timeout-minutes` no workflow
+- ✅ Otimize os testes para executar mais rápido
+- ✅ Verifique se há testes lentos
+
+### Artefatos não salvos
+- ✅ Testes devem criar `playwright-report/` e `test-results/`
+- ✅ Verifique configuração em `playwright.config.ts`
+- ✅ Logs mostram aviso se diretório não existir
 
 ## 🔐 Segurança
 
-- Workflows executam em Ubuntu latest (imagem oficial)
-- Não compartilham segredos entre jobs por padrão
+- Workflow executa em Ubuntu latest (imagem oficial)
+- Não compartilha segredos entre jobs por padrão
 - Artefatos são retidos por 30 dias e depois deletados automaticamente
 - Checkout usa token automático do GitHub (seguro)
+- Nenhuma credencial armazenada em arquivo de configuração
+
+## 🎯 Execução Local
+
+Para testar os mesmos passos localmente:
+
+```bash
+# Instalar dependências
+npm ci
+
+# Instalar navegadores Playwright
+npx playwright install --with-deps
+
+# Executar testes
+npm test
+
+# Ver relatório
+npm run test:report
+```
+
+## 📖 Mais Informações
+
+Documentação GitHub Actions: https://docs.github.com/en/actions
+
+
