@@ -41,7 +41,7 @@ export class UsersPage {
     }
 
     async deleteUser(userName: string, id: string) {
-        const userRow = this.userRows.filter({ hasText: userName });
+        const userRow = await this.verifyUserVisible(userName);
         const deleteButton = userRow.getByTestId(`delete-${id}`);
         await deleteButton.click();
 
@@ -65,7 +65,7 @@ export class UsersPage {
         const searchInput = this.searchInput;
         await searchInput.fill(name);
 
-        const userRow = this.userRows.filter({ hasText: name });
+        const userRow = await this.verifyUserVisible(name);
         return userRow;
     }
 
