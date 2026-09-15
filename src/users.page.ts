@@ -1,6 +1,6 @@
-import {Page, Locator, expect} from '@playwright/test';
+import {Page, Locator} from '@playwright/test';
 
-export class PaylabPage {
+export class UsersPage {
     readonly page: Page;
     readonly searchInput: Locator;
     readonly userRows: Locator;
