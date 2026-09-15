@@ -1,3 +1,4 @@
+import { AxeBuilder } from '@axe-core/playwright';
 import {Page, Locator} from '@playwright/test';
 
 export class UsersPage {
@@ -71,6 +72,14 @@ export class UsersPage {
 
     async viewportSize(width: number, height: number) {
         return this.page.setViewportSize({ width, height });
+    }
+
+    async checkAccessibility() {
+        const results = await new AxeBuilder({ page: this.page })
+            .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+            .analyze();
+
+        return results;
     }
 
     async closePage() {
